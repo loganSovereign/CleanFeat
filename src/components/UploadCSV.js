@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { CSVReader } from "react-papaparse";
 import TargetSelectDialog from "./TargetSelectDialog";
@@ -12,21 +12,39 @@ const UploadCSV = () => {
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
+  const [uploadError, setUploadError] = useState(false);
+  const [uploadErrorMessage, setUploadErrorMessage] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
 
-  const handleOnDrop = (data) => {
-    // Isolate the data
-    var arrData = data.map((d) => d.data);
+  const handleOnDrop = data => {
+    // Check if file is empty
+    if (
+      data[0] === undefined ||
+      data[0].data[0] === undefined ||
+      data[0].data[0] === ""
+    ) {
+      // array empty or does not exist
+      console.log("EMPTY");
+      setUploadError(true);
+      setUploadErrorMessage("The file was empty. Please try again.");
+    } else {
+      // array isn't empty
+      setUploadError(false);
+      setUploadErrorMessage("");
 
-    // Set the columns for the Target Column Select
-    setColumns(arrData[0]);
-    setOpen(true);
+      // Isolate the data
+      var arrData = data.map(d => d.data);
 
-    // Make the data into an Array of Objects with Features as the keys
-    setData(convertToArrayOfObjects(arrData));
+      // Set the columns for the Target Column Select
+      setColumns(arrData[0]);
+      setOpen(true);
+
+      // Make the data into an Array of Objects with Features as the keys
+      setData(convertToArrayOfObjects(arrData));
+    }
   };
 
-  const handleClose = (value) => {
+  const handleClose = value => {
     setOpen(false);
     setSelectedValue(value);
   };
@@ -63,14 +81,15 @@ const UploadCSV = () => {
         onDrop={handleOnDrop}
         onError={handleOnError}
         noDrag
+        config={{ skipEmptyLines: true }}
         style={{
           dropArea: {
             width: "10px",
             height: "10px",
             borderColor: "#fff",
-            marginTop: "3em",
+            marginTop: "3em"
           },
-          height: "1em",
+          height: "1em"
         }}
       >
         <Button
@@ -82,6 +101,11 @@ const UploadCSV = () => {
           Upload
         </Button>
       </CSVReader>
+      {uploadError && (
+        <Typography component="p" style={{ color: "red" }}>
+          {uploadErrorMessage}
+        </Typography>
+      )}
       <TargetSelectDialog
         selectedValue={selectedValue}
         open={open}
