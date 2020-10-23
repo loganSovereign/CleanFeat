@@ -6,19 +6,24 @@ import ACTIONS from "../redux/actions";
 const SelectScalingNormalization = (props) => {
     //props : columns, onButtonScaNorm, selectedValue, data
     const [selectedColumns, setSelectedColumns] = useState([]);
+    const [scaNormOption, setScaNormOption] = useState();
 
     const handleSelectChange = (event) => {
         setSelectedColumns(event.target.value);
     };
 
-    const handleRadioButton = () => {
+    const handleRadioButton = (event, value) => {
+        setScaNormOption(value);
+    }
 
+    const onTransformButtonClick = () => {
+        
     }
 
     return (
         <div>
             <FormControl>
-               <RadioGroup name="ScalingNormalization"onChange={handleRadioButton} row>
+               <RadioGroup name="ScalingNormalization"onChange={handleRadioButton} row value={scaNormOption}>
                    <FormControlLabel value="scaling" control={<Radio />} label="Scaling" labelPlacement="end" />
                    <FormControlLabel value="normalization" control={<Radio />} label="Normalization" labelPlacement="end" />
                </RadioGroup>
@@ -37,7 +42,7 @@ const SelectScalingNormalization = (props) => {
                     </MenuItem>
                     ))}
                 </Select> 
-                <Button type="submit" variant="contained" color="primary" size="medium">Transform</Button>
+                <Button type="submit" onclick={onTransformButtonClick} variant="contained" color="primary" size="medium">Transform</Button>
             </FormControl>
         </div>
     );
