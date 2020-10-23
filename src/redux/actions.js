@@ -3,6 +3,7 @@ const Types = {
   CREATE_TABLE: "CREATE_TABLE",
   CHANGE_TARGET: "CHANGE_TARGET",
   UPDATE_COLUMN: "UPDATE_COLUMN",
+  CREATE_TABLE: "CREATE_TABLE",
 };
 
 const createTable = (data, targetColumnName) => {

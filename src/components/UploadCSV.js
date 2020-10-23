@@ -37,6 +37,15 @@ const UploadCSV = () => {
 
       // Isolate the data
       var arrData = data.map((d) => d.data);
+
+      // Set the columns for the Target Column Select
+      setColumns(arrData[0]);
+      //SUE -- I needed the columns too
+      dispatch(ACTIONS.updateColumn(arrData[0]));
+      setOpen(true);
+
+      // Make the data into an Array of Objects with Features as the keys
+      setData(convertToArrayOfObjects(arrData));
     }
     // Set the columns for the Target Column Select
     setColumns(arrData[0]);
