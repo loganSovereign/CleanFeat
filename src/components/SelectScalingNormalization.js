@@ -6,7 +6,7 @@ import ACTIONS from "../redux/actions";
 const SelectScalingNormalization = (props) => {
     //props : columns, onButtonScaNorm, selectedValue, data
     const [selectedColumns, setSelectedColumns] = useState([]);
-    const [scaNormOption, setScaNormOption] = useState();
+    const [scaNormOption, setScaNormOption] = useState("");
 
     const handleSelectChange = (event) => {
         setSelectedColumns(event.target.value);
