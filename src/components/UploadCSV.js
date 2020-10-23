@@ -3,6 +3,7 @@ import { Button } from "@material-ui/core";
 import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { CSVReader } from "react-papaparse";
 import TargetSelectDialog from "./TargetSelectDialog";
+import SelectScalingNormalization from "./SelectScalingNormalization";
 
 const UploadCSV = () => {
   //Set the position of the button.. Can be deleted if we don't want the button to move
@@ -88,6 +89,10 @@ const UploadCSV = () => {
         columns={columns}
         data={data}
       />
+      <SelectScalingNormalization
+        columns={columns}
+        data={data}
+      ></SelectScalingNormalization>
     </div>
   );
 };

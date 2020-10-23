@@ -12,7 +12,7 @@ export const Scaling = arr => {
 
     for (let i = 0; i < filteredArr.length; i++) {
         let scaledValue = (arr[i] - min(filteredArr)) / (max(filteredArr) - min(filterArr)); 
-        scaledArr.add(scaledValue);
+        scaledArr.push(scaledValue);
     }
 
     return scaledArr;
@@ -24,7 +24,7 @@ export const Normalization = arr => {
 
     for (let i = 0; i < filteredArr.length; i++) {
         let normalizedValue = (arr[i] - mean(filteredArr)) / std(filteredArr, mean(filteredArr));
-        normalizedArr.add(normalizedValue);
+        normalizedArr.push(normalizedValue);
     }
 
     return normalizedArr;
