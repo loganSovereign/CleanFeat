@@ -1,6 +1,6 @@
 import {
   NumericStatsCalculator,
-  CategoricalStatsCalculator
+  CategoricalStatsCalculator,
 } from "./StatsCalculators";
 
 /*
@@ -43,7 +43,7 @@ const generateStatsFromRawData = (rawData, targetColumnName) => {
   const initialColumnBuilder = featureNames.reduce((acc, featureName) => {
     acc[featureName] = { data: [], type: "unknown" };
     return acc;
-  }, {}); // builds object { Feature1: [], Feature2: [],...}
+  }, {}); // builds object { Feature1: {data: [], type: "unknown"}, Feature2: {data: [], type: "unknown"},...}
   const columns = rawData.reduce((acc, row) => {
     Object.entries(row).forEach(([featureName, value]) => {
       acc[featureName].data.push(value);
@@ -55,7 +55,7 @@ const generateStatsFromRawData = (rawData, targetColumnName) => {
       }
     });
     return acc;
-  }, initialColumnBuilder); // populates column arrays { Feature1: [1,2,3...], Feature2...}
+  }, initialColumnBuilder); // populates column arrays { Feature1: {data: [1,2,3...], type: "numerical"}, Feature2...}
 
   // grab the target column data for later use
   const targetColumn = columns[targetColumnName].data;
@@ -74,14 +74,14 @@ const generateStatsFromRawData = (rawData, targetColumnName) => {
   const numericStatsData = Object.entries(numeric_columns).map(
     ([featureName, values]) => ({
       name: featureName,
-      data: new NumericStatsCalculator(values, targetColumn).buildStatsReport()
+      data: new NumericStatsCalculator(values, targetColumn).buildStatsReport(),
     })
   );
 
   const categoricalStatsData = Object.entries(categorical_columns).map(
     ([featureName, values]) => ({
       name: featureName,
-      data: new CategoricalStatsCalculator(values).buildStatsReport()
+      data: new CategoricalStatsCalculator(values).buildStatsReport(),
     })
   );
 
