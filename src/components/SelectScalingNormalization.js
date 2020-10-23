@@ -8,16 +8,7 @@ const SelectScalingNormalization = (props) => {
     const [selectedColumns, setSelectedColumns] = useState([]);
 
     const handleSelectChange = (event) => {
-        const selectedColumn = event.target.value[0];
-        const value = selectedColumns;
-        value.push(selectedColumn);
-        setSelectedColumns(value);
-        // for (let i = 0, l = options.length; i < l; i += 1) {
-        // if (options[i].selected) {
-        //     value.push(options[i].value);
-        // }
-    //}
-        //setSelectedColumns(value);
+        setSelectedColumns(event.target.value);
     };
 
     const handleRadioButton = () => {
@@ -42,8 +33,7 @@ const SelectScalingNormalization = (props) => {
                     </MenuItem>
                     {props.columns.map((data) => (
                     <MenuItem value={data} key={data}>
-                        <Checkbox  />
-                        <ListItemText primary={data} />
+                        {data}
                     </MenuItem>
                     ))}
                 </Select> 
