@@ -105,8 +105,15 @@ const generateScaledNormalizationfromRawData = (rawData, selectedColumns, option
 
     let modifiedRawData = rawData;
     let count = 0;
-    let count2 = 0;
-    modifiedRawData.map(el => {el[selectedColumns[count]] = selectedColumnsArr[count].data[count2]; count2++; if(count2 === selectedColumnsArr[count].length) count = 0;});
+    for(let i = 0; i < selectedColumnsArr.length; i++) {
+        modifiedRawData.map(el => 
+            {
+                el[selectedColumns[i]] = selectedColumnsArr[i].data[count]; 
+                if(count === selectedColumnsArr[i].data.length) count = 0;
+                count++; 
+            });
+    }
+    
       
       return { transformedData: modifiedRawData };
 };

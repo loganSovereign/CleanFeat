@@ -7,6 +7,7 @@ const intitialState = {
   rawData: [],
   targetColumnName: "",
   rawColumn: [],
+  newRawData: [],
 };
 
 export default (state = intitialState, action) => {
@@ -31,7 +32,6 @@ export default (state = intitialState, action) => {
       const castedData2 = castNumericColumns(action.data);
       return {
         ...state,
-        //rawData: castedData2,
         selectedColumns: action.selectedColumns,
         updated: action.updated,
         newRawData: scalingNormNewRawData(

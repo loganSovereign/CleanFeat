@@ -9,7 +9,7 @@ const SelectScalingNormalization = (props) => {
     const [scaNormOption, setScaNormOption] = useState("");
     const [updated, setUpdated] = useState(false);
     const dispatch = useDispatch();
-    const { statsNewData } = useSelector(state => state);
+    const { newRawData } = useSelector(state => state);
 
     const handleSelectChange = (event) => {
         setSelectedColumns(event.target.value);
@@ -21,11 +21,9 @@ const SelectScalingNormalization = (props) => {
 
     const onTransformButtonClick = () => {
         setUpdated(true);
-        dispatch(ACTIONS.scalingNormalization(props.data, selectedColumns, scaNormOption, updated));
-
-        if(statsNewData !== undefined) {
-            dispatch(ACTIONS.createTable(statsNewData.newRawData, props.target));
-        }
+        dispatch(ACTIONS.scalingNormalization(props.data, selectedColumns, scaNormOption, updated));       
+        
+        dispatch(ACTIONS.createTable(newRawData.transformedData, props.target));
       };
 
     return (
