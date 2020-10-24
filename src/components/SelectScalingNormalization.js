@@ -21,10 +21,7 @@ const SelectScalingNormalization = (props) => {
 
     const onTransformButtonClick = () => {
         setUpdated(true);
-        dispatch(ACTIONS.scalingNormalization(props.data, selectedColumns, scaNormOption, updated));       
-        
-        //dispatch(ACTIONS.createTable(newRawData.transformedData, props.target));
-        //props.onclick(newRawData.transformedData);
+        dispatch(ACTIONS.scalingNormalization(props.data, selectedColumns, scaNormOption, updated));   
         
       };
 

@@ -15,28 +15,12 @@ import {
 
 export const Scaling = (arr, value) => {
     const { filteredArr, removedIndices } = filterOutNull(arr);
-    // const scaledArr = [];
-
-    // for (let i = 0; i < filteredArr.length; i++) {
-    //     let scaledValue = (arr[i] - min(filteredArr)) / (max(filteredArr) - min(filteredArr)); 
-    //     scaledArr.push(scaledValue);
-    // }
-
-    // return scaledArr;
     const scaledValue = (value - min(filteredArr)) / (max(filteredArr) - min(filteredArr)); 
     return scaledValue
 }
 
 export const Normalization = (arr, value) => {
     const { filteredArr, removedIndices } = filterOutNull(arr);
-    // const normalizedArr = [];
-
-    // for (let i = 0; i < filteredArr.length; i++) {
-    //     let normalizedValue = (arr[i] - mean(filteredArr)) / std(filteredArr, mean(filteredArr));
-    //     normalizedArr.push(normalizedValue);
-    // }
-
-    // return normalizedArr;
     const normalizedValue = (value - mean(filteredArr)) / std(filteredArr, mean(filteredArr));
     
     return normalizedValue;
@@ -95,13 +79,6 @@ const generateScaledNormalizationfromRawData = (rawData, selectedColumns, option
          }
       }
 
-    //   let count = 0;
-    //   Object.entries(columns).forEach(([featureName, column]) => {
-    //       if (selectedColumns.find(function(name) {return name === featureName;})) {
-    //           columns[featureName].data = selectedColumnsArr[count].data;
-    //           count++;
-    //       }
-    //   })
 
     let modifiedRawData = rawData;
     let count = 0;
