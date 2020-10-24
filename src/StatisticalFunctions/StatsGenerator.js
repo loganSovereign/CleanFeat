@@ -38,7 +38,7 @@ import {
       ]
     }
   */
-const generateStatsFromRawData = (rawData, targetColumnName) => {
+const scalingNormNewRawData = (rawData, targetColumnName) => {
   const featureNames = Object.keys(rawData[0]);
   const initialColumnBuilder = featureNames.reduce((acc, featureName) => {
     acc[featureName] = { data: [], type: "unknown" };
@@ -79,6 +79,12 @@ const generateStatsFromRawData = (rawData, targetColumnName) => {
     })
   );
 
+  const numericColumns = Object.entries(numeric_columns).map(
+    ([featureName, values]) => (
+      featureName
+    )
+  )
+
   const categoricalStatsData = Object.entries(categorical_columns).map(
     ([featureName, values]) => ({
       name: featureName,
@@ -86,7 +92,7 @@ const generateStatsFromRawData = (rawData, targetColumnName) => {
     })
   );
 
-  return { numerical: numericStatsData, categorical: categoricalStatsData };
+  return { numerical: numericStatsData, categorical: categoricalStatsData, numericColumns: numericColumns };
 };
 
-export default generateStatsFromRawData;
+export default scalingNormNewRawData;

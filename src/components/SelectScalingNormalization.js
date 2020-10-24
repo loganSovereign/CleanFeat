@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { Select, Button, Checkbox, FormControl, InputLabel, FormControlLabel, MenuItem, FormHelperText, RadioGroup, Radio, Input,  ListItemText} from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ACTIONS from "../redux/actions";
 
 const SelectScalingNormalization = (props) => {
     //props : columns, onButtonScaNorm, selectedValue, data
     const [selectedColumns, setSelectedColumns] = useState([]);
     const [scaNormOption, setScaNormOption] = useState("");
+    const [updated, setUpdated] = useState(false);
+    const dispatch = useDispatch();
+    const { statsNewData } = useSelector(state => state);
 
     const handleSelectChange = (event) => {
         setSelectedColumns(event.target.value);
@@ -14,11 +17,16 @@ const SelectScalingNormalization = (props) => {
 
     const handleRadioButton = (event, value) => {
         setScaNormOption(value);
-    }
+    };
 
     const onTransformButtonClick = () => {
-        
-    }
+        setUpdated(true);
+        dispatch(ACTIONS.scalingNormalization(props.data, selectedColumns, scaNormOption, updated));
+
+        if(statsNewData !== undefined) {
+            dispatch(ACTIONS.createTable(statsNewData.newRawData, props.target));
+        }
+      };
 
     return (
         <div>
@@ -42,7 +50,7 @@ const SelectScalingNormalization = (props) => {
                     </MenuItem>
                     ))}
                 </Select> 
-                <Button type="submit" onclick={onTransformButtonClick} variant="contained" color="primary" size="medium">Transform</Button>
+                <Button onClick={onTransformButtonClick} variant="contained" color="primary" size="medium">Transform</Button>
             </FormControl>
         </div>
     );

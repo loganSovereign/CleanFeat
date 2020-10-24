@@ -4,6 +4,7 @@ const Types = {
   CHANGE_TARGET: "CHANGE_TARGET",
   UPDATE_COLUMN: "UPDATE_COLUMN",
   CREATE_TABLE: "CREATE_TABLE",
+  SCALING_NORMALIZATION_CONVERSION: "SCALING_NORMALIZATION_CONVERSION"
 };
 
 const createTable = (data, targetColumnName) => {
@@ -15,8 +16,13 @@ const updateColumn = (column) => {
 
 };
 
+const scalingNormalization = (data, selectedColumns, option, updated) => {
+  return { type: Types.SCALING_NORMALIZATION_CONVERSION, data, selectedColumns, option, updated };
+}
+
 export default {
   createTable,
   updateColumn,
+  scalingNormalization,
   Types,
 };

@@ -5,7 +5,7 @@ import { CSVReader } from "react-papaparse";
 import TargetSelectDialog from "./TargetSelectDialog";
 import SelectScalingNormalization from "./SelectScalingNormalization";
 import ACTIONS from "../redux/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import DataGridTable from "./DataGridTable";
 
 const UploadCSV = () => {
@@ -19,6 +19,7 @@ const UploadCSV = () => {
   const [uploadErrorMessage, setUploadErrorMessage] = useState("");
   const [selectedValue, setSelectedValue] = useState("");
   const dispatch = useDispatch();
+  const { statsData } = useSelector(state => state);
 
   const handleOnDrop = data => {
     // Check if file is empty
@@ -119,10 +120,13 @@ const UploadCSV = () => {
         columns={columns}
         data={data}
       />
-      <SelectScalingNormalization
-        columns={columns}
+      {statsData !== undefined && (
+        <SelectScalingNormalization
+        columns={statsData.numericColumns}
         data={data}
+        target={selectedValue}
       ></SelectScalingNormalization>
+      )}
       <DataGridTable />
     </div>
   );
