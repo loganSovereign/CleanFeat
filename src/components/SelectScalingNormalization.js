@@ -23,8 +23,14 @@ const SelectScalingNormalization = (props) => {
         setUpdated(true);
         dispatch(ACTIONS.scalingNormalization(props.data, selectedColumns, scaNormOption, updated));       
         
-        dispatch(ACTIONS.createTable(newRawData.transformedData, props.target));
+        //dispatch(ACTIONS.createTable(newRawData.transformedData, props.target));
+        //props.onclick(newRawData.transformedData);
+        
       };
+
+    const transformClick = () => {
+        dispatch(ACTIONS.createTable(newRawData.transformedData, props.target));
+    }
 
     return (
         <div>
@@ -49,6 +55,7 @@ const SelectScalingNormalization = (props) => {
                     ))}
                 </Select> 
                 <Button onClick={onTransformButtonClick} variant="contained" color="primary" size="medium">Transform</Button>
+                <Button onClick={transformClick} color="primary" size="medium">Do it</Button>
             </FormControl>
         </div>
     );

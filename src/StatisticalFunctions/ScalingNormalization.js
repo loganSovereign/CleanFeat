@@ -72,7 +72,7 @@ const generateScaledNormalizationfromRawData = (rawData, selectedColumns, option
           for( let j = 0; j < selectedColumnsArr[i].data.length; j++) {
               if(option === "scaling") {
                 if(selectedColumnsArr[i].data[j] === null) {
-                    scaledOrNormArr.push(null);
+                    scaledOrNormArr.push("NA");
                 }
                 else {
                     scaledOrNormArr.push(Scaling(selectedColumnsArr[i].data, selectedColumnsArr[i].data[j]));
@@ -80,7 +80,7 @@ const generateScaledNormalizationfromRawData = (rawData, selectedColumns, option
               } 
               else {
                 if(selectedColumnsArr[i].data[j] === null) {
-                    scaledOrNormArr.push(null);
+                    scaledOrNormArr.push("NA");
                 }
                 else {
                     scaledOrNormArr.push(Normalization(selectedColumnsArr[i].data, selectedColumnsArr[i].data[j]));
@@ -109,8 +109,8 @@ const generateScaledNormalizationfromRawData = (rawData, selectedColumns, option
         modifiedRawData.map(el => 
             {
                 el[selectedColumns[i]] = selectedColumnsArr[i].data[count]; 
-                if(count === selectedColumnsArr[i].data.length) count = 0;
                 count++; 
+                if(count === selectedColumnsArr[i].data.length) count = 0;
             });
     }
     
