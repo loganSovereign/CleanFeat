@@ -1,19 +1,20 @@
 const Types = {
-  CREATE_TEST_TABLE: "CREATE_TEST_TABLE",
   CREATE_TABLE: "CREATE_TABLE",
-  CHANGE_TARGET: "CHANGE_TARGET",
-  UPDATE_COLUMN: "UPDATE_COLUMN",
-  CREATE_TABLE: "CREATE_TABLE",
-  SCALING_NORMALIZATION_CONVERSION: "SCALING_NORMALIZATION_CONVERSION"
+  SCALING_NORMALIZATION_CONVERSION: "SCALING_NORMALIZATION_CONVERSION",
+  UPDATE_COLUMNS: "UPDATE_COLUMNS",
+  UPDATE_TABLE: "UPDATE_TABLE"
 };
 
 const createTable = (data, targetColumnName) => {
   return { type: Types.CREATE_TABLE, data, targetColumnName };
 };
 
-const updateColumn = (column) => {
-  return { type: Types.UPDATE_COLUMN, column };
+const updateColumnNames = columns => {
+  return { type: Types.UPDATE_COLUMNS, columns };
+};
 
+const updateTable = updatedData => {
+  return { type: Types.UPDATE_TABLE, updatedData };
 };
 
 const scalingNormalization = (data, selectedColumns, option, updated) => {
@@ -22,7 +23,8 @@ const scalingNormalization = (data, selectedColumns, option, updated) => {
 
 export default {
   createTable,
-  updateColumn,
+  updateColumnNames,
+  updateTable,
   scalingNormalization,
-  Types,
+  Types
 };

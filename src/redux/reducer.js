@@ -8,6 +8,7 @@ const intitialState = {
   targetColumnName: "",
   rawColumn: [],
   newRawData: [],
+  columnNames: []
 };
 
 export default (state = intitialState, action) => {
@@ -18,15 +19,21 @@ export default (state = intitialState, action) => {
         ...state,
         rawData: castedData,
         targetColumnName: action.targetColumnName,
-        statsData: generateStatsFromRawData(
-          castedData,
-          action.targetColumnName
-        ),
+        statsData: generateStatsFromRawData(castedData, action.targetColumnName)
       };
-    case ACTIONS.Types.UPDATE_COLUMN:
+    case ACTIONS.Types.UPDATE_COLUMNS:
       return {
         ...state,
-        rawColumn: action.column,
+        columnNames: action.columns
+      };
+    case ACTIONS.Types.UPDATE_TABLE:
+      return {
+        ...state,
+        rawData: action.updatedData,
+        statsData: generateStatsFromRawData(
+          action.updatedData,
+          state.targetColumnName
+        )
       };
     case ACTIONS.Types.SCALING_NORMALIZATION_CONVERSION:
       const castedData2 = castNumericColumns(action.data);

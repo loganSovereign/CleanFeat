@@ -5,8 +5,7 @@ import { CSVReader } from "react-papaparse";
 import TargetSelectDialog from "./TargetSelectDialog";
 import SelectScalingNormalization from "./SelectScalingNormalization";
 import ACTIONS from "../redux/actions";
-import { useDispatch, useSelector } from "react-redux";
-import DataGridTable from "./DataGridTable";
+import { useDispatch } from "react-redux";
 
 const UploadCSV = () => {
   //Set the position of the button.. Can be deleted if we don't want the button to move
@@ -43,7 +42,7 @@ const UploadCSV = () => {
       // Set the columns for the Target Column Select
       setColumns(arrData[0]);
       //SUE -- I needed the columns too
-      dispatch(ACTIONS.updateColumn(arrData[0]));
+      dispatch(ACTIONS.updateColumnNames(arrData[0]));
       setOpen(true);
 
       // Make the data into an Array of Objects with Features as the keys
@@ -120,14 +119,6 @@ const UploadCSV = () => {
         columns={columns}
         data={data}
       />
-      {statsData !== undefined && (
-        <SelectScalingNormalization
-        columns={statsData.numericColumns}
-        data={data}
-        target={selectedValue}
-      ></SelectScalingNormalization>
-      )}
-      <DataGridTable />
     </div>
   );
 };
