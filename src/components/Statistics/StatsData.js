@@ -50,23 +50,21 @@ const useStyles = makeStyles(theme => ({
 const StatsData = props => {
   const [showNumeric, setShowNumeric] = useState(true);
   const [selectedFeatures, setSelectedFeatures] = useState([]); // selectedFeatures can be used by the transformations so they know what columns to operate on
-  const [data, setData] = useState([]);
   const [optionComponentTransformer, setOptionComponentTransformer] = useState(
     null
   );
-  const { rawData, statsData, columnNames } = useSelector(state => state);
+  const { rawData, statsData, columnNames, data } = useSelector(state => state);
   const dispatch = useDispatch();
 
   const classes = useStyles();
 
-  useEffect(() => {
-    if(rawData.length !== 0)
-    {
-      // Make the data into an Array of Objects with Features as the keys
-      var arrData = rawData.map(d => d.data);
-      setData(convertToArrayOfObjects(arrData));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if(rawData.length !== 0)
+  //   {
+  //     var arrData = rawData.map(d => d.data);
+  //     setData(convertToArrayOfObjects(arrData));
+  //   }
+  // }, []);
 
    // Converts the array where Arr[0] is Columns and the rest are Rows into Array of Objects with Column names as the keys
    function convertToArrayOfObjects(data) {
@@ -93,6 +91,7 @@ const StatsData = props => {
     const selectedTransformer = availableTransformers.find(
       t => t.name === transformerName
     );
+
 
     if (selectedTransformer.hasOwnProperty("optionComponent")) {
       setOptionComponentTransformer(selectedTransformer);

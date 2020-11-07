@@ -8,7 +8,8 @@ const intitialState = {
   targetColumnName: "",
   rawColumn: [],
   newRawData: [],
-  columnNames: []
+  columnNames: [],
+  data: []   // an Array of Objects with Features as the keys
 };
 
 export default (state = intitialState, action) => {
@@ -19,7 +20,8 @@ export default (state = intitialState, action) => {
         ...state,
         rawData: castedData,
         targetColumnName: action.targetColumnName,
-        statsData: generateStatsFromRawData(castedData, action.targetColumnName)
+        statsData: generateStatsFromRawData(castedData, action.targetColumnName),
+        data: castedData
       };
     case ACTIONS.Types.UPDATE_COLUMNS:
       return {
