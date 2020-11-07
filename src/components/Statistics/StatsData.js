@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import {
   Switch,
   Grid,
@@ -16,6 +16,8 @@ import ACTIONS from "../../redux/actions";
 import ExampleOptions from "../Transformations/ExampleOptions";
 import ExampleTransformerWithOptions from "../../Transformers/ExampleTransformerWithOptions";
 import ExampleTransformerWithoutOptions from "../../Transformers/ExampleTransformerWithoutOptions";
+import ScalingNormalization  from "../../Transformers/ScalingNormalization";
+import SelectScalingNormalization from "../SelectScalingNormalization";
 
 import StatisticsTable from "./StatisticsTable";
 
@@ -30,6 +32,10 @@ const allTransformers = {
     {
       name: "Example Transformer without Options",
       transformFunction: ExampleTransformerWithoutOptions
+    },
+    {
+      name: "Normalization",
+      transformFunction: ScalingNormalization
     }
   ]
 };
@@ -44,13 +50,44 @@ const useStyles = makeStyles(theme => ({
 const StatsData = props => {
   const [showNumeric, setShowNumeric] = useState(true);
   const [selectedFeatures, setSelectedFeatures] = useState([]); // selectedFeatures can be used by the transformations so they know what columns to operate on
+  const [data, setData] = useState([]);
   const [optionComponentTransformer, setOptionComponentTransformer] = useState(
     null
   );
-  const { rawData, statsData } = useSelector(state => state);
+  const { rawData, statsData, columnNames } = useSelector(state => state);
   const dispatch = useDispatch();
 
   const classes = useStyles();
+
+  useEffect(() => {
+    if(rawData.length !== 0)
+    {
+      // Make the data into an Array of Objects with Features as the keys
+      var arrData = rawData.map(d => d.data);
+      setData(convertToArrayOfObjects(arrData));
+    }
+  }, []);
+
+   // Converts the array where Arr[0] is Columns and the rest are Rows into Array of Objects with Column names as the keys
+   function convertToArrayOfObjects(data) {
+    var keys = data.shift(),
+      i = 0,
+      k = 0,
+      obj = null,
+      output = [];
+
+    for (i = 0; i < data.length; i++) {
+      obj = {};
+
+      for (k = 0; k < keys.length; k++) {
+        obj[keys[k]] = data[i][k];
+      }
+
+      output.push(obj);
+    }
+
+    return output;
+  }
 
   const handleTransformationSelect = transformerName => {
     const selectedTransformer = availableTransformers.find(
@@ -117,6 +154,13 @@ const StatsData = props => {
               >
                 Numerical
               </Typography>
+            </Grid>
+            <Grid item>
+            <SelectScalingNormalization
+              columns={statsData.numericColumns}
+              data={data}
+              target={selectedFeatures}
+            ></SelectScalingNormalization>
             </Grid>
             <Grid item style={{ marginLeft: "auto" }}>
               <FormControl
