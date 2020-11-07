@@ -65,7 +65,7 @@ const UploadCSV = () => {
 
     for (i = 0; i < data.length; i++) {
       obj = {};
-
+ 
       for (k = 0; k < keys.length; k++) {
         obj[keys[k]] = data[i][k];
       }
