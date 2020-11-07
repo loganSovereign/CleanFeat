@@ -1,7 +1,8 @@
 import ACTIONS from "./actions";
 import generateStatsFromRawData from "../StatisticalFunctions/StatsGenerator";
 import { castNumericColumns } from "../Utilities/ObjectUtilities";
-import scalingNormNewRawData from "../StatisticalFunctions/ScalingNormalization";
+// import scalingNormNewRawData from "../StatisticalFunctions/ScalingNormalization";
+import generateScaledNormalizationfromRawData from "../StatisticalFunctions/ScalingNormalization";
 
 const intitialState = {
   rawData: [],
@@ -43,7 +44,7 @@ export default (state = intitialState, action) => {
         ...state,
         selectedColumns: action.selectedColumns,
         updated: action.updated,
-        newRawData: scalingNormNewRawData(
+        newRawData: generateScaledNormalizationfromRawData(
          castedData2,
          action.selectedColumns,
          action.option
