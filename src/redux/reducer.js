@@ -1,7 +1,6 @@
 import ACTIONS from "./actions";
 import generateStatsFromRawData from "../StatisticalFunctions/StatsGenerator";
 import { castNumericColumns } from "../Utilities/ObjectUtilities";
-import generateScaledNormalizationfromRawData from "../StatisticalFunctions/ScalingNormalization";
 
 const intitialState = {
   rawData: [],
